@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     $usuario_autenticado = false;
     $usuario_id = null;
     $usuario_perfil_id = null; //Tipo de usuário se for igual a 1 admin senão comum
@@ -21,8 +23,12 @@
     }
 
     if ($usuario_autenticado) {
-        echo "Autenticou";
+        $_SESSION['autenticado'] = 'SIM';
+        $_SESSION['id'] = $usuario_id;
+        $_SESSION['perfil_id'] = $usuario_perfil_id;
+        header('Location: home.php');
     }else{
-        echo "Não autenticou";
+        $_SESSION['autenticado'] = 'NÃO';
+        header('Location: index.php?login=erro');
     }
 ?>
